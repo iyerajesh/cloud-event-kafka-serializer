@@ -1,8 +1,8 @@
-package com.xylia.platform.events;
+package io.xylia.platform.events;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xylia.platform.events.builder.CloudEventBuilder;
-import com.xylia.platform.events.builder.CloudEventImpl;
+import io.xylia.platform.events.builder.CloudEventBuilder;
+import io.xylia.platform.events.builder.CloudEventImpl;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

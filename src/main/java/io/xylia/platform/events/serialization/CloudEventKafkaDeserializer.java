@@ -1,4 +1,4 @@
-package com.xylia.platform.events.serialization;
+package io.xylia.platform.events.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cloudevents.v03.CloudEventImpl;
@@ -6,7 +6,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;
 
-import static com.xylia.platform.events.util.Json.binaryDecodeValue;
+import static io.xylia.platform.events.util.Json.binaryDecodeValue;
 
 public class CloudEventKafkaDeserializer<T> implements Deserializer<CloudEventImpl> {
 

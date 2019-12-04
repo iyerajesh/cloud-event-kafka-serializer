@@ -1,4 +1,4 @@
-package com.xylia.platform.events.util;
+package io.xylia.platform.events.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

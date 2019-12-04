@@ -1,4 +1,4 @@
-package com.xylia.platform.events.serialization;
+package io.xylia.platform.events.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cloudevents.json.Json;

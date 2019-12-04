@@ -3,10 +3,11 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'maven-publish'
+    id "com.jfrog.bintray" version "1.7.3"
 }
 
-group = 'com.xylia.platform.events'
-version = '1.0.0-SNAPSHOT'
+group = 'io.xylia.platform.events'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -17,14 +18,15 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    jcenter()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    compile group: 'io.cloudevents', name: 'cloudevents-api', version: '1.0.0'
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
 
     // cloud events dependencies
     implementation group: 'io.cloudevents', name: 'cloudevents-api', version: '1.0.0'
@@ -35,19 +37,101 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-publishing {
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
-    repositories {
-        mavenLocal()
-        //other repositories
+javadoc.failOnError = false
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "iyerajesh"
+            name "Rajesh Iyer"
+            email "iyerajesh@gmail.com"
+        }
     }
 
+    scm {
+        url "https://github.com/iyerajesh/cloud-event-kafka-serializer"
+    }
+}
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['mavenPublication']
+
+    pkg {
+        repo = 'platform'
+        name = 'cloud-event-kafka-serializer'
+        userOrg = 'xylia'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/iyerajesh/cloud-event-kafka-serializer.git'
+        version {
+            name = '1.0.0'
+            desc = '1.0.0'
+            released = new Date()
+        }
+    }
+
+}
+publishing {
+
     publications {
-        mavenJava(MavenPublication) {
+        mavenPublication(MavenPublication) {
             from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+            groupId 'io.xylia.platform.events'
+            artifactId 'cloud-event-kafka-serializer'
+            version '1.0.0'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'A Kafka Serializer/Deserializer implementation for Cloud Event transport on Kafka')
+                root.appendNode('name', 'Cloud Event Kafka Serializer')
+                root.appendNode('url', 'https://github.com/iyerajesh/cloud-event-kafka-serializer')
+                root.children().last() + pomConfig
+            }
         }
     }
 }
+
+//publishing {
+//
+//    repositories {
+//        mavenLocal()
+//        //other repositories
+//    }
+//
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//        }
+//    }
+//}
+
 test {
     useJUnitPlatform()
 }

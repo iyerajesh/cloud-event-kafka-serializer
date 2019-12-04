@@ -1,4 +1,4 @@
-package com.xylia.platform.events;
+package io.xylia.platform.events;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

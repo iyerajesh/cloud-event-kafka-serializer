@@ -1,4 +1,4 @@
-package com.xylia.platform.events.builder;
+package io.xylia.platform.events.builder;
 
 import io.cloudevents.extensions.ExtensionFormat;
 import lombok.extern.slf4j.Slf4j;

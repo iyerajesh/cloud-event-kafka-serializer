@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xylia.platform.events.builder;
+package io.xylia.platform.events.builder;
 
 import io.cloudevents.Attributes;
 import io.cloudevents.CloudEvent;
