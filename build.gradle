@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.xylia.platform.events'
-version = '1.0.0'
+version = '1.0.1'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -86,8 +86,8 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/iyerajesh/cloud-event-kafka-serializer.git'
         version {
-            name = '1.0.0'
-            desc = '1.0.0'
+            name = '1.0.1'
+            desc = '1.0.1'
             released = new Date()
         }
     }
@@ -106,7 +106,7 @@ publishing {
             }
             groupId 'io.xylia.platform.events'
             artifactId 'cloud-event-kafka-serializer'
-            version '1.0.0'
+            version '1.0.1'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'A Kafka Serializer/Deserializer implementation for Cloud Event transport on Kafka')
@@ -118,20 +118,7 @@ publishing {
     }
 }
 
-//publishing {
-//
-//    repositories {
-//        mavenLocal()
-//        //other repositories
-//    }
-//
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//        }
-//    }
-//}
-
 test {
     useJUnitPlatform()
 }
+
